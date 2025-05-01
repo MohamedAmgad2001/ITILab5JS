@@ -1,138 +1,147 @@
 // 1
-let leftBtn = document.getElementById("leftBtn");
-let rightBtn = document.getElementById("rightBtn");
-let startBtn = document.getElementById("startBtn");
-let stopBtn = document.getElementById("stopBtn");
-let img = document.images[0];
-let count = 1;
-let intervalId;
+// let leftBtn = document.getElementById("leftBtn");
+// let rightBtn = document.getElementById("rightBtn");
+// let startBtn = document.getElementById("startBtn");
+// let stopBtn = document.getElementById("stopBtn");
+// let img = document.images[0];
+// let count = 1;
+// let intervalId;
 
-rightBtn.onclick = rightSlide;
+// rightBtn.onclick = rightSlide;
 
-leftBtn.onclick = () => {
-  count--;
-  if (count < 1) count = 5;
-  img.src = `images/${count}.png`;
-};
-function rightSlide() {
-  count++;
-  if (count > 5) count = 1;
-  img.src = `images/${count}.png`;
-}
-startBtn.onclick = () => {
-  if (!intervalId) {
-    intervalId = setInterval(rightSlide, 1500);
-    leftBtn.disabled = true;
-    rightBtn.disabled = true;
-  }
-};
+// leftBtn.onclick = () => {
+//   count--;
+//   if (count < 1) count = 5;
+//   img.src = `images/${count}.png`;
+// };
+// function rightSlide() {
+//   count++;
+//   if (count > 5) count = 1;
+//   img.src = `images/${count}.png`;
+// }
+// startBtn.onclick = () => {
+//   if (!intervalId) {
+//     intervalId = setInterval(rightSlide, 1500);
+//     leftBtn.disabled = true;
+//     rightBtn.disabled = true;
+//   }
+// };
 
-stopBtn.onclick = () => {
-  clearInterval(intervalId);
-  intervalId = null;
-  leftBtn.disabled = false;
-  rightBtn.disabled = false;
-};
+// stopBtn.onclick = () => {
+//   clearInterval(intervalId);
+//   intervalId = null;
+//   leftBtn.disabled = false;
+//   rightBtn.disabled = false;
+// };
 
 // ---------------------------------------------------------------------
 // 2
-// let nameInput = document.getElementById("name");
-// let gradeInput = document.getElementById("grade");
-// let nameError = document.getElementById("nameError");
-// let gradeError = document.getElementById("gradeError");
-// let departmentError = document.getElementById("departmentError");
-// let tableBody = document.querySelector("#studentTable tbody");
+let nameInput = document.getElementById("name");
+let gradeInput = document.getElementById("grade");
+let nameError = document.getElementById("nameError");
+let gradeError = document.getElementById("gradeError");
+let departmentError = document.getElementById("departmentError");
+let tableBody = document.querySelector("#studentTable tbody");
 
-// let addBtn = document.getElementById("addBtn");
-// let sortSelect = document.getElementById("sort");
-// let filterSelect = document.getElementById("filter");
-// addBtn.addEventListener("click", function () {
-//   nameError.textContent = "";
-//   gradeError.textContent = "";
-//   departmentError.textContent = "";
+let addBtn = document.getElementById("addBtn");
+let sortSelect = document.getElementById("sort");
+let filterSelect = document.getElementById("filter");
+addBtn.addEventListener("click", function () {
+  nameError.textContent = "";
+  gradeError.textContent = "";
+  departmentError.textContent = "";
 
-//   let fullName = nameInput.value.trim();
-//   let name = fullName.split(" ")[0];
-//   let grade = gradeInput.value.trim();
-//   let department = document.querySelector(
-//     'input[name="fav_language"]:checked'
-//   ).value;
+  let fullName = nameInput.value.trim();
+  let name = fullName.split(" ")[0];
+  name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  let grade = gradeInput.value.trim();
+  let department = document.querySelector(
+    'input[name="fav_language"]:checked'
+  ).value;
 
-//   if (!department) {
-//     departmentError.textContent = "You should select atleast one department";
-//     return;
-//   }
+  if (!department) {
+    departmentError.textContent = "You should select atleast one department";
+    return;
+  }
 
-//   if (name === "") {
-//     nameError.textContent = "Name is required";
-//     return;
-//   }
+  if (name === "") {
+    nameError.textContent = "Name is required";
+    return;
+  }
 
-//   if (grade === "") {
-//     gradeError.textContent = "Grade is required";
-//     return;
-//   }
+  if (grade === "") {
+    gradeError.textContent = "Grade is required";
+    return;
+  }
 
-//   const gradeValue = grade;
-//   if (isNaN(gradeValue) || gradeValue < 0 || gradeValue > 100) {
-//     gradeError.textContent = "Grade must be between 0 and 100.";
-//     return;
-//   }
+  const gradeValue = grade;
+  if (isNaN(gradeValue) || gradeValue < 0 || gradeValue > 100) {
+    gradeError.textContent = "Grade must be between 0 and 100.";
+    return;
+  }
 
-//   let tr = document.createElement("tr");
+  let tr = document.createElement("tr");
 
-//   let tdName = document.createElement("td");
-//   tdName.innerText = name;
-//   tr.appendChild(tdName);
+  let tdName = document.createElement("td");
+  tdName.innerText = name;
+  tr.appendChild(tdName);
 
-//   let tdGrade = document.createElement("td");
-//   tdGrade.innerText = gradeValue;
-//   tr.appendChild(tdGrade);
+  let tdGrade = document.createElement("td");
+  tdGrade.innerText = gradeValue;
+  tr.appendChild(tdGrade);
 
-//   let tdDelete = document.createElement("td");
-//   let deleteBtn = document.createElement("button");
-//   deleteBtn.innerText = "Delete";
-//   deleteBtn.onclick = () => deleteStudent(tr);
-//   tdDelete.appendChild(deleteBtn);
-//   tr.appendChild(tdDelete);
+  let tdDelete = document.createElement("td");
+  let deleteBtn = document.createElement("button");
+  deleteBtn.innerText = "Delete";
+  deleteBtn.onclick = () => deleteStudent(tr);
+  tdDelete.appendChild(deleteBtn);
+  tr.appendChild(tdDelete);
 
-//   tableBody.appendChild(tr);
+  if (gradeValue < 60) {
+    tr.style.backgroundColor = "red";
+  } else if (gradeValue <= 75) {
+    tr.style.backgroundColor = "blue";
+  } else {
+    tr.style.backgroundColor = "green";
+  }
 
-//   nameInput.value = "";
-//   gradeInput.value = "";
-// });
+  tableBody.appendChild(tr);
 
-// function deleteStudent(row) {
-//   tableBody.removeChild(row);
-// }
+  nameInput.value = "";
+  gradeInput.value = "";
+});
 
-// sortSelect.addEventListener("change", function () {
-//   let rows = Array.from(tableBody.rows);
+function deleteStudent(row) {
+  tableBody.removeChild(row);
+}
 
-//   if (sortSelect.value === "name") {
-//     rows.sort((a, b) =>
-//       a.cells[0].innerText.localeCompare(b.cells[0].innerText)
-//     );
-//   } else if (sortSelect.value === "grade") {
-//     rows.sort(
-//       (a, b) => Number(a.cells[1].innerText) - Number(b.cells[1].innerText)
-//     );
-//   }
+sortSelect.addEventListener("change", function () {
+  let rows = Array.from(tableBody.rows);
 
-//   rows.forEach((row) => tableBody.appendChild(row));
-// });
+  if (sortSelect.value === "name") {
+    rows.sort((a, b) =>
+      a.cells[0].innerText.localeCompare(b.cells[0].innerText)
+    );
+  } else if (sortSelect.value === "grade") {
+    rows.sort(
+      (a, b) => Number(a.cells[1].innerText) - Number(b.cells[1].innerText)
+    );
+  }
 
-// filterSelect.addEventListener("change", function () {
-//   let rows = Array.from(tableBody.rows);
+  rows.forEach((row) => tableBody.appendChild(row));
+});
 
-//   rows.forEach((row) => {
-//     let grade = Number(row.cells[1].innerText);
-//     row.style.display = "table-row";
+filterSelect.addEventListener("change", function () {
+  let rows = Array.from(tableBody.rows);
 
-//     if (filterSelect.value === "passed" && grade < 60) {
-//       row.style.display = "none";
-//     } else if (filterSelect.value === "failed" && grade >= 60) {
-//       row.style.display = "none";
-//     }
-//   });
-// });
+  rows.forEach((row) => {
+    let grade = Number(row.cells[1].innerText);
+    row.style.display = "table-row";
+
+    if (filterSelect.value === "passed" && grade < 60) {
+      row.style.display = "none";
+    } else if (filterSelect.value === "failed" && grade >= 60) {
+      row.style.display = "none";
+    }
+  });
+});
